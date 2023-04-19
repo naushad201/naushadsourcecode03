@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="4c369db2-24da-429b-936a-9ce940758f90" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="sizeofpoc0004Flow" doc:id="08987eb4-96bd-4114-9f4c-e923fa182376" >
+		<http:listener doc:name="Listener" doc:id="a9b40532-36a3-460d-a4b4-80384a6f5415" config-ref="HTTP_Listener_config" path="/test"/>
+		<logger level="INFO" doc:name="Logger" doc:id="2c39ba6b-dc19-4351-9c1f-5c1052c8b914" message="startflow"/>
+		<ee:transform doc:name="Transform Message" doc:id="ee2d1b92-0e85-4f3d-a2d5-247fe5748163" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+sizeOf(payload)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="a0eb4a87-07f2-4ad0-8833-a2c51843b747" />
+		<logger level="INFO" doc:name="Logger" doc:id="3fc421e1-1762-413d-b66d-bdbdd0a2283d" />
+	</flow>
+</mule>
